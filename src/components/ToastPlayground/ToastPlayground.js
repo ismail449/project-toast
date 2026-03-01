@@ -1,14 +1,24 @@
 import React from 'react';
+import { AlertOctagon, AlertTriangle, CheckCircle, Info } from 'react-feather';
 
 import Button from '../Button';
+import Toast from '../Toast/Toast';
 
 import styles from './ToastPlayground.module.css';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
+const ICONS_BY_VARIANT = {
+  notice: Info,
+  warning: AlertTriangle,
+  success: CheckCircle,
+  error: AlertOctagon,
+};
+
 function ToastPlayground() {
   const [toastMessage, setToastMessage] = React.useState('');
   const [toastVariant, setToastVariant] = React.useState(VARIANT_OPTIONS[0]);
+  const [isToastOpen, setIsToastOpen] = React.useState(false);
 
   function handleToastMessageChange(event) {
     setToastMessage(event.target.value);
@@ -18,12 +28,29 @@ function ToastPlayground() {
     setToastVariant(event.target.value);
   }
 
+  function handleToastClose() {
+    setIsToastOpen(false);
+  }
+
+  function handleToastOpen() {
+    setIsToastOpen(true);
+  }
+
   return (
     <div className={styles.wrapper}>
       <header>
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
+
+      {isToastOpen && (
+        <Toast
+          message={toastMessage}
+          variant={toastVariant}
+          icon={ICONS_BY_VARIANT[toastVariant]}
+          handleClose={handleToastClose}
+        />
+      )}
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -68,7 +95,7 @@ function ToastPlayground() {
         <div className={styles.row}>
           <div className={styles.label} />
           <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button>Pop Toast!</Button>
+            <Button onClick={handleToastOpen}>Pop Toast!</Button>
           </div>
         </div>
       </div>
