@@ -8,6 +8,7 @@ import {
 } from 'react-feather';
 
 import VisuallyHidden from '../VisuallyHidden';
+import { useToastContext } from '../ToastProvider/ToastProvider';
 
 import styles from './Toast.module.css';
 
@@ -18,15 +19,16 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ children, variant, handleClose, id }) {
+function Toast({ children, variant, id }) {
   const Icon = ICONS_BY_VARIANT[variant];
+  const { removeToast } = useToastContext();
   return (
     <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
         <Icon size={24} />
       </div>
       <p className={styles.content}>{children}</p>
-      <button className={styles.closeButton} onClick={() => handleClose(id)}>
+      <button className={styles.closeButton} onClick={() => removeToast(id)}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
