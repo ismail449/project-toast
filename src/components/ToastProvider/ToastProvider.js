@@ -24,12 +24,17 @@ function ToastProvider({ children }) {
     setToastArray(nextToastArray);
   }
 
+  function clearToastArray() {
+    setToastArray([]);
+  }
+
   return (
     <ToastContext
       value={{
         toastArray,
         removeToast,
         addToast,
+        clearToastArray,
       }}
     >
       {children}
