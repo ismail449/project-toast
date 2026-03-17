@@ -1,4 +1,6 @@
 import React from 'react';
+import ToastShelf from '../ToastShelf/ToastShelf';
+import { useKeyDown } from '../../hooks/useKeyDown';
 
 export const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
@@ -6,6 +8,7 @@ const ToastContext = React.createContext();
 
 function ToastProvider({ children }) {
   const [toastArray, setToastArray] = React.useState([]);
+  useKeyDown('Escape', clearToastArray);
 
   function removeToast(toastId) {
     const nextToastArray = toastArray.filter((toast) => toast.id !== toastId);
@@ -34,9 +37,10 @@ function ToastProvider({ children }) {
         toastArray,
         removeToast,
         addToast,
-        clearToastArray,
       }}
     >
+
+      <ToastShelf />
       {children}
     </ToastContext>
   );

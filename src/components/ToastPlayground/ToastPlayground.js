@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Button from '../Button';
-import ToastShelf from '../ToastShelf/ToastShelf';
 
 import styles from './ToastPlayground.module.css';
 import {
@@ -38,7 +37,6 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <ToastShelf />
       <form onSubmit={handleToastSubmit}>
         <div className={styles.controlsWrapper}>
           <div className={styles.row}>
